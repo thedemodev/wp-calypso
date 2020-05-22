@@ -1,7 +1,6 @@
 /**
  * External dependencies
  */
-
 import PropTypes from 'prop-types';
 import React from 'react';
 import classnames from 'classnames';
@@ -15,7 +14,7 @@ import resizeImageUrl from 'lib/resize-image-url';
 import safeImageUrl from 'lib/safe-image-url';
 import { getNormalizedPost } from 'state/posts/selectors';
 import { getEditorPath } from 'state/ui/editor/selectors';
-import canCurrentUserEditPost from 'state/selectors/can-current-user-edit-post';
+import { canCurrentUserEditPost } from 'state/posts/selectors/can-current-user-edit-post';
 import { isMultiSelectEnabled } from 'state/ui/post-type-list/selectors';
 
 function PostTypeListPostThumbnail( { onClick, thumbnail, postLink } ) {
