@@ -24,7 +24,6 @@ import account from './account/reducer';
 import accountRecovery from './account-recovery/reducer';
 import activePromotions from './active-promotions/reducer';
 import activityLog from './activity-log/reducer';
-import application from './application/reducer';
 import applicationPasswords from './application-passwords/reducer';
 import atomicHosting from './hosting/reducer';
 import atomicTransfer from './atomic-transfer/reducer';
@@ -108,7 +107,6 @@ const reducers = {
 	accountRecovery,
 	activePromotions,
 	activityLog,
-	application,
 	applicationPasswords,
 	atomicHosting,
 	atomicTransfer,
