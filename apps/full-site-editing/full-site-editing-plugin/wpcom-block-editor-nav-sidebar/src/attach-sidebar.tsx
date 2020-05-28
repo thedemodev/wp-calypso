@@ -9,7 +9,10 @@ import { addFilter } from '@wordpress/hooks';
  * Internal dependencies
  */
 import { STORE_KEY } from './constants';
-import WpcomBlockEditorNavSidebar, { selectNavItems } from './wpcom-block-editor-nav-sidebar';
+import WpcomBlockEditorNavSidebar, {
+	selectNavItems,
+	selectPostStatusLabels,
+} from './wpcom-block-editor-nav-sidebar';
 import './style.scss';
 
 async function findElement( selector: string, timeoutMs = 5000 ) {
@@ -51,6 +54,17 @@ async function attachSidebar() {
 
 	addFilter( 'a8c.wpcom-block-editor.shouldCloseEditor', 'a8c/fse/attachSidebar', () => false );
 
+	// Teach core data about the status entity so we can use selectors like `getEntityRecords()`
+	dispatch( 'core' ).addEntities( [
+		{
+			baseURL: '/wp/v2/statuses',
+			key: 'slug',
+			kind: 'root',
+			name: 'status',
+			plural: 'statuses',
+		},
+	] );
+
 	// Classes need to be attached to elements that aren't controlled by React,
 	// otherwise our alterations will be removed when React re-renders. So attach
 	// to <body> element.
@@ -81,7 +95,8 @@ async function attachSidebar() {
 	document.body.appendChild( sidebarContainer );
 	render( <WpcomBlockEditorNavSidebar />, sidebarContainer );
 
-	// Start resolving sidebar items
+	// Start pre-loading sidebar content
+	selectPostStatusLabels( select );
 	selectNavItems( select );
 }
 
