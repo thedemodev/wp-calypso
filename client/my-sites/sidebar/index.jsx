@@ -72,6 +72,8 @@ import {
 } from './constants';
 import canSiteViewAtomicHosting from 'state/selectors/can-site-view-atomic-hosting';
 import isSiteWPForTeams from 'state/selectors/is-site-wpforteams';
+import { getCurrentRoute } from 'state/selectors/get-current-route';
+import { domainManagementAllRoot } from 'my-sites/domains/paths';
 
 /**
  * Style dependencies
@@ -777,7 +779,7 @@ export class MySitesSidebar extends Component {
 					</ul>
 				</SidebarMenu>
 
-				<QuerySiteChecklist siteId={ this.props.siteId } />
+				{ this.props.siteId && <QuerySiteChecklist siteId={ this.props.siteId } /> }
 
 				<ExpandableSidebarMenu
 					onClick={ this.toggleSection( SIDEBAR_SECTION_SITE ) }
@@ -815,21 +817,19 @@ export class MySitesSidebar extends Component {
 					</ExpandableSidebarMenu>
 				) }
 
-				{
-					<ExpandableSidebarMenu
-						onClick={ this.toggleSection( SIDEBAR_SECTION_MANAGE ) }
-						expanded={ this.props.isManageSectionOpen }
-						title={ this.props.translate( 'Manage' ) }
-						materialIcon="settings"
-					>
-						<ul>
-							{ this.hosting() }
-							{ this.upgrades() }
-							{ this.users() }
-							{ this.siteSettings() }
-						</ul>
-					</ExpandableSidebarMenu>
-				}
+				<ExpandableSidebarMenu
+					onClick={ this.toggleSection( SIDEBAR_SECTION_MANAGE ) }
+					expanded={ this.props.isManageSectionOpen }
+					title={ this.props.translate( 'Manage' ) }
+					materialIcon="settings"
+				>
+					<ul>
+						{ this.hosting() }
+						{ this.upgrades() }
+						{ this.users() }
+						{ this.siteSettings() }
+					</ul>
+				</ExpandableSidebarMenu>
 
 				{ this.wpAdmin() }
 			</div>
@@ -851,9 +851,15 @@ export class MySitesSidebar extends Component {
 
 function mapStateToProps( state ) {
 	const currentUser = getCurrentUser( state );
-	const selectedSiteId = getSelectedSiteId( state );
+
+	const currentRoute = getCurrentRoute( state );
+	const isAllSitesDomainsView = currentRoute.startsWith( domainManagementAllRoot() + '/' );
+
+	const selectedSiteId = isAllSitesDomainsView ? null : getSelectedSiteId( state );
 	const isSingleSite = !! selectedSiteId || currentUser.site_count === 1;
-	const siteId = selectedSiteId || ( isSingleSite && getPrimarySiteId( state ) ) || null;
+	const siteId = isAllSitesDomainsView
+		? null
+		: selectedSiteId || ( isSingleSite && getPrimarySiteId( state ) ) || null;
 	const site = getSite( state, siteId );
 
 	const isJetpack = isJetpackSite( state, siteId );
@@ -898,7 +904,7 @@ function mapStateToProps( state ) {
 		siteId,
 		site,
 		siteSuffix: site ? '/' + site.slug : '',
-		canViewAtomicHosting: canSiteViewAtomicHosting( state ),
+		canViewAtomicHosting: ! isAllSitesDomainsView && canSiteViewAtomicHosting( state ),
 		isSiteWPForTeams: isSiteWPForTeams( state, siteId ),
 		siteTasklist: getSiteTaskList( state, siteId ),
 		hideChecklistProgress:
