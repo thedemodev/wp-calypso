@@ -840,7 +840,7 @@ export class MySitesSidebar extends Component {
 		return (
 			<Sidebar>
 				<SidebarRegion>
-					<CurrentSite />
+					<CurrentSite forceAllSitesView={ this.props.forceAllSitesView } />
 					{ this.renderSidebarMenus() }
 				</SidebarRegion>
 				<SidebarFooter>{ this.addNewSite() }</SidebarFooter>
@@ -884,6 +884,7 @@ function mapStateToProps( state ) {
 		canUserUseCustomerHome: canCurrentUserUseCustomerHome( state, siteId ),
 		currentUser,
 		customizeUrl: getCustomizerUrl( state, selectedSiteId ),
+		forceAllSitesView: isAllDomainsView,
 		hasJetpackSites: hasJetpackSites( state ),
 		isDomainOnly: isDomainOnlySite( state, selectedSiteId ),
 		isJetpack,
