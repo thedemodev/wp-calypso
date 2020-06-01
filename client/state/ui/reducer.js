@@ -12,6 +12,7 @@ import actionLog from './action-log/reducer';
 import billingTransactions from './billing-transactions/reducer';
 import checkout from './checkout/reducer';
 import comments from './comments/reducer';
+import convertToBlocksDialog from './convert-to-blocks-dialog/reducer';
 import dropZone from './drop-zone/reducer';
 import editor from './editor/reducer';
 import googleMyBusiness from './google-my-business/reducer';
@@ -103,6 +104,7 @@ const reducer = combineReducers( {
 	billingTransactions,
 	checkout,
 	comments,
+	convertToBlocksDialog,
 	dropZone,
 	editor,
 	editorDeprecationDialog,

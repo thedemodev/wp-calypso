@@ -570,7 +570,7 @@ class CalypsoifyIframe extends Component< Props & ConnectedProps & ProtectedForm
 	};
 
 	render() {
-		const { iframeUrl, shouldLoadIframe } = this.props;
+		const { iframeUrl, postId, shouldLoadIframe } = this.props;
 		const {
 			classicBlockEditorId,
 			isMediaModalVisible,
@@ -595,10 +595,10 @@ class CalypsoifyIframe extends Component< Props & ConnectedProps & ProtectedForm
 					properties={ this.getStatsProps() }
 				/>
 				<EditorDocumentHead />
-				{ /* eslint-disable-next-line wpcalypso/jsx-classname-namespace */ }
 				<ConvertToBlocksDialog
-					showDialog={ isConversionPromptVisible }
 					handleResponse={ this.handleConversionResponse }
+					postId={ postId }
+					showDialog={ isConversionPromptVisible }
 				/>
 				{ /* eslint-disable-next-line wpcalypso/jsx-classname-namespace */ }
 				<div className="main main-column calypsoify is-iframe" role="main">
