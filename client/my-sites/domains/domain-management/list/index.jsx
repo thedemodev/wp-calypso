@@ -432,7 +432,14 @@ export class List extends React.Component {
 
 	goToEditDomainRoot = ( domain ) => {
 		if ( domain.type !== type.TRANSFER ) {
-			page( domainManagementEdit( this.props.selectedSite.slug, domain.name, null, this.props.currentRoute ) );
+			page(
+				domainManagementEdit(
+					this.props.selectedSite.slug,
+					domain.name,
+					null,
+					this.props.currentRoute
+				)
+			);
 		} else {
 			page( domainManagementTransferIn( this.props.selectedSite.slug, domain.name ) );
 		}
