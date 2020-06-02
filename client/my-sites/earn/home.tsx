@@ -151,18 +151,18 @@ const Home: FunctionComponent< ConnectedProps > = ( {
 					},
 			  }
 			: {
-					text: translate( 'Collect recurring payments' ),
+					text: translate( 'Collect Payments' ),
 					action: () => {
 						trackCtaButton( 'recurring-payments' );
 						page( `/earn/payments/${ selectedSiteSlug }` );
 					},
 			  };
 		const title = hasConnectedAccount
-			? translate( 'Manage Recurring Payments' )
-			: translate( 'Collect recurring payments' );
+			? translate( 'Manage Payments' )
+			: translate( 'Collect Payments' );
 		const body = hasConnectedAccount
 			? translate(
-					"Manage your subscribers, or your current subscription options and review the total revenue that you've made from recurring payments."
+					"Manage your customers and subscribers, or your current subscription options and review the total revenue that you've made from payments."
 			  )
 			: translate(
 					'Charge for and automate recurring service payments, membership dues, or donations. {{em}}Available with a subscription to any paid plan{{/em}}.',
