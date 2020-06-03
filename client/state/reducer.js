@@ -59,7 +59,6 @@ import jetpackSync from './jetpack-sync/reducer';
 import jitm from './jitm/reducer';
 import legal from './legal/reducer';
 import media from './media/reducer';
-import memberships from './memberships/reducer';
 import mailchimp from './mailchimp/reducer';
 import mySites from './my-sites/reducer';
 import notices from './notices/reducer';
@@ -144,7 +143,6 @@ const reducers = {
 	jitm,
 	legal,
 	media,
-	memberships,
 	mySites,
 	notices,
 	notificationSettings,
