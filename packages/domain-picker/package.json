@@ -33,12 +33,13 @@
 		"@automattic/data-stores": "^1.0.0-alpha.1",
 		"@automattic/react-i18n": "^1.0.0-alpha.0",
 		"@automattic/calypso-analytics": "^1.0.0-alpha.1",
+		"@wordpress/base-styles": "1.9.0",
 		"@wordpress/components": "^9.6.0",
 		"@wordpress/icons": "^2.0.0",
 		"classnames": "^2.2.6",
 		"lodash": "^4.17.15",
 		"tslib": "^1.10.0",
-		"use-debounce": "^3.1.0",
+		"use-debounce": "3.4.2",
 		"uuid": "^7.0.2"
 	},
 	"peerDependencies": {
@@ -47,5 +48,8 @@
 		"@wordpress/i18n": "^3.10.0",
 		"react": "^16.8"
 	},
-	"private": true
+	"private": true,
+	"devDependencies": {
+		"@wordpress/base-styles": "1.9.0"
+	}
 }
