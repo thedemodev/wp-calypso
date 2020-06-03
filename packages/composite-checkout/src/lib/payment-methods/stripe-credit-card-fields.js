@@ -7,8 +7,7 @@ import { useTheme } from 'emotion-theming';
 import { CardCvcElement, CardExpiryElement, CardNumberElement } from 'react-stripe-elements';
 import { LeftColumn, RightColumn } from '../styled-components/ie-fallback';
 import debugFactory from 'debug';
-import { sprintf } from '@wordpress/i18n';
-import { useI18n } from '@automattic/react-i18n';
+import { sprintf, __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -143,12 +142,11 @@ export function createStripeMethod( { store, stripe, stripeConfiguration } ) {
 			/>
 		),
 		inactiveContent: <StripeSummary />,
-		getAriaLabel: ( __ ) => __( 'Credit Card' ),
+		getAriaLabel: () => __( 'Credit Card' ),
 	};
 }
 
 function StripeCreditCardFields() {
-	const { __ } = useI18n();
 	const theme = useTheme();
 	const onEvent = useEvents();
 	const [ isStripeFullyLoaded, setIsStripeFullyLoaded ] = useState( false );
@@ -468,7 +466,6 @@ function StripePayButton( { disabled, store, stripe, stripeConfiguration } ) {
 }
 
 function ButtonContents( { formStatus, total } ) {
-	const { __ } = useI18n();
 	if ( formStatus === 'submitting' ) {
 		return __( 'Processing…' );
 	}
@@ -504,8 +501,8 @@ function isCreditCardFormValid( store ) {
 	if ( incompleteFieldKeys.length > 0 ) {
 		// Show "this field is required" for each incomplete field
 		incompleteFieldKeys.map( ( key ) =>
-			store.dispatch( store.actions.setCardDataError( key, 'This field is required' ) )
-		); // TODO: localize this message
+			store.dispatch( store.actions.setCardDataError( key, __( 'This field is required' ) ) )
+		);
 	}
 	if ( areThereErrors || ! cardholderName?.value.length || incompleteFieldKeys.length > 0 ) {
 		return false;
@@ -514,7 +511,6 @@ function isCreditCardFormValid( store ) {
 }
 
 function CreditCardLabel() {
-	const { __ } = useI18n();
 	return (
 		<React.Fragment>
 			<span>{ __( 'Credit or debit card' ) }</span>
@@ -536,8 +532,6 @@ function CreditCardLogos() {
 }
 
 function CreditCardLoading() {
-	const { __ } = useI18n();
-
 	return (
 		<CreditCardFieldsWrapper isLoaded={ true }>
 			<CreditCardField
@@ -629,8 +623,6 @@ const LockIconGraphic = styled.svg`
 `;
 
 function CVV( { className } ) {
-	const { __ } = useI18n();
-
 	return (
 		<svg
 			className={ className }

@@ -2,8 +2,7 @@
  * External dependencies
  */
 import React from 'react';
-import { sprintf } from '@wordpress/i18n';
-import { useI18n } from '@automattic/react-i18n';
+import { sprintf, __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -24,13 +23,11 @@ export function createFullCreditsMethod() {
 		label: <FullCreditsLabel />,
 		submitButton: <FullCreditsSubmitButton />,
 		inactiveContent: <FullCreditsSummary />,
-		getAriaLabel: ( __ ) => __( 'Credits' ),
+		getAriaLabel: () => __( 'Credits' ),
 	};
 }
 
 function FullCreditsLabel() {
-	const { __ } = useI18n();
-
 	return (
 		<React.Fragment>
 			<div>{ __( 'Credits' ) }</div>
@@ -78,7 +75,6 @@ function FullCreditsSubmitButton( { disabled } ) {
 }
 
 function ButtonContents( { formStatus, total } ) {
-	const { __ } = useI18n();
 	if ( formStatus === 'submitting' ) {
 		return __( 'Processing…' );
 	}
@@ -92,6 +88,5 @@ function ButtonContents( { formStatus, total } ) {
 }
 
 function FullCreditsSummary() {
-	const { __ } = useI18n();
 	return __( 'Pay using Credits' );
 }

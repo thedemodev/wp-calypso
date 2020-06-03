@@ -53,7 +53,7 @@ export default function CheckoutPaymentMethods( { summary, isComplete, className
 						{ ...paymentMethod }
 						checked={ true }
 						summary
-						ariaLabel={ paymentMethod.getAriaLabel( __ ) }
+						ariaLabel={ paymentMethod.getAriaLabel() }
 					/>
 				</CheckoutErrorBoundary>
 			</div>
@@ -84,7 +84,7 @@ export default function CheckoutPaymentMethods( { summary, isComplete, className
 							{ ...method }
 							checked={ paymentMethod?.id === method.id }
 							onClick={ onClickPaymentMethod }
-							ariaLabel={ method.getAriaLabel( __ ) }
+							ariaLabel={ method.getAriaLabel() }
 						/>
 					</CheckoutErrorBoundary>
 				) ) }

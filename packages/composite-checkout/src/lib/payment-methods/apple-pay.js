@@ -3,7 +3,7 @@
  */
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import debugFactory from 'debug';
-import { useI18n } from '@automattic/react-i18n';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -27,13 +27,11 @@ export function createApplePayMethod( stripe, stripeConfiguration ) {
 			<ApplePaySubmitButton stripe={ stripe } stripeConfiguration={ stripeConfiguration } />
 		),
 		inactiveContent: <ApplePaySummary />,
-		getAriaLabel: ( __ ) => __( 'Apple Pay' ),
+		getAriaLabel: () => __( 'Apple Pay' ),
 	};
 }
 
 export function ApplePayLabel() {
-	const { __ } = useI18n();
-
 	return (
 		<React.Fragment>
 			<span>{ __( 'Apple Pay' ) }</span>
@@ -45,7 +43,6 @@ export function ApplePayLabel() {
 }
 
 export function ApplePaySubmitButton( { disabled, stripe, stripeConfiguration } ) {
-	const { __ } = useI18n();
 	const paymentRequestOptions = usePaymentRequestOptions( stripeConfiguration );
 	const [ items, total ] = useLineItems();
 	const {
@@ -116,7 +113,6 @@ export function ApplePaySubmitButton( { disabled, stripe, stripeConfiguration } 
 }
 
 export function ApplePaySummary() {
-	const { __ } = useI18n();
 	return <React.Fragment>{ __( 'Apple Pay' ) }</React.Fragment>;
 }
 

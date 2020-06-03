@@ -4,7 +4,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import debugFactory from 'debug';
-import { useI18n } from '@automattic/react-i18n';
+import { __ } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -28,13 +28,11 @@ export function createPayPalMethod() {
 		label: <PaypalLabel />,
 		submitButton: <PaypalSubmitButton />,
 		inactiveContent: <PaypalSummary />,
-		getAriaLabel: ( __ ) => __( 'PayPal' ),
+		getAriaLabel: () => __( 'PayPal' ),
 	};
 }
 
 export function PaypalLabel() {
-	const { __ } = useI18n();
-
 	return (
 		<React.Fragment>
 			<span>{ __( 'PayPal' ) }</span>
@@ -55,7 +53,6 @@ export function PaypalSubmitButton( { disabled } ) {
 	} = useTransactionStatus();
 	const submitTransaction = usePaymentProcessor( 'paypal' );
 	const [ items ] = useLineItems();
-	const { __ } = useI18n();
 
 	const onClick = () => {
 		onEvent( { type: 'PAYPAL_TRANSACTION_BEGIN' } );
@@ -93,7 +90,6 @@ export function PaypalSubmitButton( { disabled } ) {
 }
 
 function PayPalButtonContents( { formStatus } ) {
-	const { __ } = useI18n();
 	if ( formStatus === 'submitting' ) {
 		return __( 'Processing…' );
 	}
@@ -108,7 +104,6 @@ const ButtonPayPalIcon = styled( PaypalLogo )`
 `;
 
 function PaypalSummary() {
-	const { __ } = useI18n();
 	return __( 'PayPal' );
 }
 
