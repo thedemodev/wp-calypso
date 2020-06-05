@@ -19,6 +19,7 @@ import { STORE_KEY } from '../../stores/onboard';
 import { useDomainSuggestions } from '../../hooks/use-domain-suggestions';
 import { DOMAIN_SUGGESTIONS_STORE } from '../../stores/domain-suggestions';
 import { getSuggestionsVendor } from 'lib/domains/suggestions';
+import { trackEventWithFlow } from '../../lib/analytics';
 
 const DOMAIN_SUGGESTION_VENDOR = getSuggestionsVendor( true );
 
@@ -75,6 +76,22 @@ const DomainPickerButton: React.FunctionComponent< Props > = ( {
 		setDomainModalVisibility( true );
 	};
 
+	const setDomainSearchModal = ( query: string ) => {
+		trackEventWithFlow( 'calypso_newsite_domain_search', {
+			query,
+			where: 'domain_modal',
+		} );
+		setDomainSearch( query );
+	};
+
+	const setDomainSearchPopover = ( query: string ) => {
+		trackEventWithFlow( 'calypso_newsite_domain_search', {
+			query,
+			where: 'domain_popover',
+		} );
+		setDomainSearch( query );
+	};
+
 	return (
 		<>
 			<Button
@@ -99,7 +116,7 @@ const DomainPickerButton: React.FunctionComponent< Props > = ( {
 				domainCategories={ domainCategories }
 				onSetDomainCategory={ setDomainCategory }
 				domainSearch={ domainSearch }
-				onSetDomainSearch={ setDomainSearch }
+				onSetDomainSearch={ setDomainSearchPopover }
 				isOpen={ isDomainPopoverVisible }
 				showDomainConnectButton={ false }
 				showDomainCategories={ false }
@@ -117,7 +134,7 @@ const DomainPickerButton: React.FunctionComponent< Props > = ( {
 				domainCategories={ domainCategories }
 				onSetDomainCategory={ setDomainCategory }
 				domainSearch={ domainSearch }
-				onSetDomainSearch={ setDomainSearch }
+				onSetDomainSearch={ setDomainSearchModal }
 				isOpen={ isDomainModalVisible }
 				showDomainConnectButton
 				showDomainCategories
